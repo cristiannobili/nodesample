@@ -7,18 +7,17 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // bypassa la verifica del cert
 
 const conf = JSON.parse(fs.readFileSync('conf.json'));
 const token = conf.token;
-
 const baseUrl = "https://ws.progettimolinari.it";
 const urlSet = baseUrl + "/cache/set";
 
 const readText = (question) => {
    return new Promise((resolve) => {
-      readline.createInterface({
+      const read = readline.createInterface({
          input: process.stdin,
          output: process.stdout
       });
-      readline.question(question, text => {
-         readline.close();
+      read.question(question, text => {
+         read.close();
          resolve(text);
       });
    });
@@ -49,4 +48,6 @@ readText("Inserisci la chiave: ").then((response) => {
       saveData(key, value).then(console.log);      
    })
 });
+
+
 
