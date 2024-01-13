@@ -3,6 +3,10 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url); //CommonJS
 const fs = require('fs');
 const readline = require('readline');
+const read = readline.createInterface({
+   input: process.stdin,
+   output: process.stdout
+});
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; // bypassa la verifica del certificato TLS
 
 const conf = JSON.parse(fs.readFileSync('conf.json'));
@@ -12,10 +16,6 @@ const urlSet = baseUrl + "/cache/set";
 
 const readText = (question) => {
    return new Promise((resolve) => {
-      const read = readline.createInterface({
-         input: process.stdin,
-         output: process.stdout
-      });
       read.question(question, text => {
          read.close();
          resolve(text);
